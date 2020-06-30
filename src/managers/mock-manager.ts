@@ -40,16 +40,17 @@ export class MockManager<T> extends Manager {
     this.replace(funcName, newFunc);
   }
 
-  protected replace(name: string, arg: any) {
+  protected replace(name: string | symbol, arg: any) {
     this.stubClass.prototype[name] = arg;
   }
 
   protected getAllFunctionNames(obj: any) {
-    let funcNames: string[] = [];
+    let funcNames: (string | symbol)[] = [];
 
     do {
       // Get all properties on this object
       funcNames = funcNames.concat(Object.getOwnPropertyNames(obj.prototype));
+      funcNames = funcNames.concat(Object.getOwnPropertySymbols(obj.prototype));
 
       // Get the parent class
       obj = Object.getPrototypeOf(obj);

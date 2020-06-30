@@ -15,13 +15,14 @@ export class StaticMockManager<T> extends MockManager<T> {
     (this.stubClass as any)[name] = arg;
   }
 
-  protected getAllFunctionNames(obj: any): string[] {
-    let funcNames: string[] = [];
+  protected getAllFunctionNames(obj: any): (string | symbol)[] {
+    let funcNames: (string | symbol)[] = [];
 
     do {
       // Get all properties on this object
       funcNames = funcNames.concat(Object.getOwnPropertyNames(obj)
         .filter(property => typeof obj[property] === 'function'));
+      funcNames = funcNames.concat(Object.getOwnPropertySymbols(obj.prototype));
 
       // Get the parent class
       obj = Object.getPrototypeOf(obj);
