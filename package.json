@@ -32,6 +32,7 @@
     "sinon": ">= 4.1.2"
   },
   "scripts": {
+    "prepare": "npm run compile",
     "dtslint": "dtslint test/types",
     "lint": "tslint --project tsconfig.json 'src/**/*{.ts,.tsx}'",
     "lint-fix": "tslint --project tsconfig.json --fix  'src/**/*{.ts,.tsx}'",
